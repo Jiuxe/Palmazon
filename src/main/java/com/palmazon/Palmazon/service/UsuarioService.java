@@ -1,23 +1,20 @@
 package com.palmazon.Palmazon.service;
 
 import com.palmazon.Palmazon.model.Usuario;
-import com.palmazon.Palmazon.repository.UsuarioRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
-@Service
-public class UsuarioService {
+public interface UsuarioService {
 
-    @Autowired
-    UsuarioRepository usuarioRepository;
+    List<Usuario> getUsuarios();
 
-    public ArrayList<Usuario> getUsuarios(){
-        return usuarioRepository.getAllUsuarios();
-    }
+    Optional<Usuario> getUsuarioById(Integer id);
 
-    public void setUsuario(Usuario usuario){
-        usuarioRepository.setUsuario(usuario);
-    }
+    void setUsuario(Usuario usuario);
+
+    void updateUsuario(Integer id, Usuario usuario);
+
+    void deleteUsuarioById(Integer id);
 }
