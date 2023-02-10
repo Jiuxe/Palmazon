@@ -31,9 +31,8 @@ public class ProductoServiceImpl implements ProductoService {
     }
     @Override
     public void updateProducto(Integer id, Producto producto){
-        Producto old_user = getProductoById(id).orElseThrow();
-
-        productoRepository.save(old_user);
+        Producto old_product = getProductoById(id).orElseThrow();
+        productoRepository.save(old_product);
     }
 
     @Override
