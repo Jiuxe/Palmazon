@@ -1,5 +1,6 @@
 package com.palmazon.Palmazon.service;
 
+import com.palmazon.Palmazon.model.Orden;
 import com.palmazon.Palmazon.model.Producto;
 import com.palmazon.Palmazon.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,8 +32,21 @@ public class ProductoServiceImpl implements ProductoService {
     }
     @Override
     public void updateProducto(Integer id, Producto producto){
-        Producto old_product = getProductoById(id).orElseThrow();
-        productoRepository.save(old_product);
+
+        try {
+            Producto old_product = getProductoById(id).orElseThrow(() -> new IllegalArgumentException("Value is not present"));
+            if(!old_product.equals(producto)){
+                old_product.setNombre(producto.getNombre());
+                old_product.setDescripcion(producto.getDescripcion());
+                old_product.setImagen(producto.getImagen());
+                old_product.setPrecio(producto.getPrecio());
+                old_product.setCantidad(producto.getCantidad());
+                old_product.setUsuario(producto.getUsuario());
+                productoRepository.save(old_product);
+            }
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
